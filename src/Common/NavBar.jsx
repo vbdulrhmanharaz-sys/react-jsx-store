@@ -7,15 +7,24 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlinePhone } from "react-icons/md";
 import imge from "../assets/imaged/logo-alt-2x.webp";
 import { FaCodeCompare } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useAuthStore } from "../zustand/authStore";
 import { categories, brands } from "../data/products";
 
 export default function NavBar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
   const { cart, totalItems } = useCart();
   const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const { user, logout } = useAuthStore();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    navigate(query ? `/products?search=${encodeURIComponent(query)}` : "/products");
+  };
 
   return (
     <header className="bg-[#1f2d3d] text-white top-0 left-0 w-full">
@@ -47,7 +56,7 @@ export default function NavBar() {
         </div>
 
         {/* Search */}
-        <div className="flex flex-1 mx-12 max-w-4xl">
+        <form onSubmit={handleSearch} className="flex flex-1 mx-12 max-w-4xl">
           <select className="bg-[#e8b26c] text-black px-4 rounded-l-md outline-none">
             <option>All</option>
           </select>
@@ -55,11 +64,13 @@ export default function NavBar() {
             type="text"
             placeholder="Search here..."
             className="flex-1 px-3 py-2 bg-white text-black outline-none"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
-          <button className="bg-[#e8b26c] px-5 rounded-r-md">
+          <button type="submit" aria-label="Search products" className="bg-[#e8b26c] px-5 rounded-r-md">
             <FaSearch className="text-black" />
           </button>
-        </div>
+        </form>
 
         {/* Right Side */}
         <div className="flex items-center gap-6">

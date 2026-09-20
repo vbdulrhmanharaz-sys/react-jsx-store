@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { allProducts } from "../data/products";
 import ProductCard from "../Components/ProductCard";
 
@@ -7,10 +8,11 @@ const ITEMS_PER_PAGE = 20;
 const allCategories = ["All", "Phones", "Laptops", "Tablets", "Audio", "Wearables", "Cameras", "Gaming", "TVs", "Smart Home", "Accessories"];
 
 export default function Products() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortBy, setSortBy] = useState("default");
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
+  const search = searchParams.get("search") || "";
 
   let filtered = activeCategory === "All"
     ? allProducts
@@ -76,7 +78,16 @@ export default function Products() {
                 type="text"
                 placeholder="Search products..."
                 value={search}
-                onChange={e => { setSearch(e.target.value); setPage(1); }}
+                onChange={e => {
+                  const value = e.target.value;
+                  setSearchParams(currentParams => {
+                    const nextParams = new URLSearchParams(currentParams);
+                    if (value.trim()) nextParams.set("search", value);
+                    else nextParams.delete("search");
+                    return nextParams;
+                  });
+                  setPage(1);
+                }}
                 className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-orange-400 w-56"
               />
               <div className="flex items-center gap-3">
