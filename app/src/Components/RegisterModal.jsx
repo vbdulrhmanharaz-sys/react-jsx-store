@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useAuthStore } from "../zustand/authStore";
 import { registerSchema } from "../validation/authSchemas";
 
-export default function RegisterModal({ onClose }) {
+export default function RegisterModal() {
   const [success, setSuccess] = useState(false);
   const { register: registerUser, loading, error, clearError } = useAuthStore();
   const navigate = useNavigate();
@@ -33,7 +33,6 @@ export default function RegisterModal({ onClose }) {
     if (result.success) {
       setSuccess(true);
       setTimeout(() => {
-        onClose();
         navigate("/login");
       }, 2000);
     }
@@ -44,7 +43,7 @@ export default function RegisterModal({ onClose }) {
       <div className="bg-[#1f2d3d] text-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative">
 
         <button
-          onClick={onClose}
+          onClick={() => navigate("/")}
           className="absolute top-4 right-4 w-8 h-8 bg-gray-600 hover:bg-gray-500 rounded-full flex items-center justify-center text-sm z-10"
         >
           ✕
@@ -62,7 +61,7 @@ export default function RegisterModal({ onClose }) {
 
               {error && (
                 <div className="bg-red-500/20 border border-red-500/30 text-red-300 text-sm px-4 py-3 rounded-xl mb-4">
-                  ⚠️ {error}
+                   {error}
                 </div>
               )}
 
@@ -204,12 +203,12 @@ export default function RegisterModal({ onClose }) {
               <div className="flex justify-end gap-3">
                 <button
                   type="button"
-                  onClick={onClose}
+                  onClick={() => navigate("/")}
                   className="px-6 py-2.5 border border-gray-500 rounded-lg text-sm text-gray-300 hover:bg-gray-700 transition-colors"
                 >
                   Cancel
                 </button>
-                <button onClick={()=> navigate("/")}
+                <button
                   type="submit"
                   disabled={loading}
                   className="px-8 py-2.5 bg-[#e8b26c] hover:bg-amber-400 text-slate-800 font-semibold rounded-lg text-sm transition-colors disabled:opacity-60"

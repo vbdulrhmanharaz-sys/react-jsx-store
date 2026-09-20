@@ -20,7 +20,7 @@ export default function Login() {
   const onSubmit = async (formData) => {
     clearError();
     const result = await login(formData.email, formData.password);
-    if (result.success) navigate("/");
+    if (result.success) navigate("/home");
   };
 
   return (
@@ -29,7 +29,7 @@ export default function Login() {
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-          <Link to="/" className="hover:text-orange-500">🏠 Home</Link>
+          <Link to="/login" className="hover:text-orange-500"> Home</Link>
           <span>/</span>
           <span>Account</span>
           <span>/</span>
@@ -47,7 +47,7 @@ export default function Login() {
 
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
-                ⚠️ {error}
+                 {error}
               </div>
             )}
 

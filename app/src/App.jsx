@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+  import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -22,6 +22,15 @@ function PageFallback() {
   );
 }
 
+function NotFound() {
+  return (
+    <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 px-6 text-center">
+      <h1 className="text-4xl font-bold text-gray-900">Page not found</h1>
+      <p className="text-gray-600">The page you are looking for does not exist.</p>
+    </div>
+  );
+}
+
 function withSuspense(Component) {
   return (
     <Suspense fallback={<PageFallback />}>
@@ -36,7 +45,7 @@ export default function App() {
       path: "/",
       element: <LayOut />,
       children: [
-        { path: "/home", element: withSuspense(Home) },
+        { index: true, element: withSuspense(Home) },
         { path: "cart", element: withSuspense(Cart) },
         { path: "products", element: withSuspense(Products) },
         { path: "category/:categoryName", element: withSuspense(CategoryPage) },
@@ -44,9 +53,15 @@ export default function App() {
         { path: "checkout", element: withSuspense(Checkout) },
       ],
     },
-    {  index: true, element: withSuspense(Login) },
+    {  path: "/login", element: withSuspense(Login) },
     { path: "/register", element: withSuspense(RegisterModal) },
-  ]);
+    { path: "*", element: <NotFound /> },
+  ],
+  {
+    basename: "/react-jsx-store",
+  }
+
+);
 
   return (
     <CartProvider>

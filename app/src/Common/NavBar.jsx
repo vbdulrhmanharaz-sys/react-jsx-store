@@ -89,26 +89,26 @@ export default function NavBar() {
                     to="/account"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>👤</span> My Account
+                    <span>My Account</span>
                   </Link>
                   <Link
                     to="/orders"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>📦</span> My Orders
+                    <span>My Orders</span>
                   </Link>
                   <Link
                     to="/wishlist"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>❤️</span> Wishlist
+                    <span>Wishlist</span>
                   </Link>
                   <hr className="my-1 border-gray-100" />
                   <button
                     onClick={logout}
                     className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors"
                   >
-                    <span>🚪</span> Sign Out
+                    <span>Sign Out</span>
                   </button>
                 </>
               ) : (
@@ -119,23 +119,23 @@ export default function NavBar() {
                     <p className="text-xs text-gray-400">Sign in to your account</p>
                   </div>
                   <Link
-                    to="/"
+                    to="/login"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>🔑</span> Sign In
+                    <span>Sign In</span>
                   </Link>
                   <Link
                     to="/register"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>✨</span> Create Account
+                    <span>Create Account</span>
                   </Link>
                   <hr className="my-1 border-gray-100" />
                   <Link
                     to="/orders"
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
-                    <span>📦</span> Track Order
+                    <span> Track Order</span>
                   </Link>
                 </>
               )}
