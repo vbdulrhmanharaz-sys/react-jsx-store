@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-  import { createBrowserRouter, RouterProvider } from "react-router-dom";
+  import { createHashRouter, RouterProvider } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ToastProvider } from "./context/ToastContext";
@@ -40,7 +40,7 @@ function withSuspense(Component) {
 }
 
 export default function App() {
-  const routing = createBrowserRouter([
+  const routing = createHashRouter([
     {
       path: "/",
       element: <LayOut />,
@@ -56,12 +56,7 @@ export default function App() {
     {  path: "/login", element: withSuspense(Login) },
     { path: "/register", element: withSuspense(RegisterModal) },
     { path: "*", element: <NotFound /> },
-  ],
-  {
-    basename: "/react-jsx-store",
-  }
-
-);
+  ]);
 
   return (
     <CartProvider>
